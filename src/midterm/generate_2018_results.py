@@ -55,8 +55,28 @@ def load_house():
     elx = pd.DataFrame(data=d, columns=columns)
     return elx
 
+
+def load_house():
+    df = pd.read_csv('../data/2018-governor.csv')
+    
+    d = []
+
+    for row in df.itertuples(index=True):
+        totalvotes = getattr(row, "RepVotes")+getattr(row, "DemVotes")+getattr(row, "ThirdVotes")
+        cand1_actual = getattr(row, "DemVotes")/totalvotes
+        cand2_actual = getattr(row, "RepVotes")/totalvotes
+        
+        d.append(np.array([getattr(row, "Area"), 2018, 'Gov-G', 'Gov-G', 'Democrat', 'Republican', '11/6/2018', cand1_actual, cand2_actual]))
+    
+    columns = ['location', 'year', 'type_simple', 'type_detail', 'cand1_name', 'cand2_name', 'electiondate', 'cand1_actual', 'cand2_actual']
+    elx = pd.DataFrame(data=d, columns=columns)
+    return elx
+
 def generate_results():
-    df1 = load_house()
-    df2 = load_senate()
-    df1.to_csv('../out/utility/house.csv')
-    df2.to_csv('../out/utility/senate.csv')
+    # df1 = load_house()
+    # df2 = load_senate()
+    # df1.to_csv('../out/utility/house.csv')
+    # df2.to_csv('../out/utility/senate.csv')
+
+    df3 = load_governor()
+    df3.to_csv('../out/governor-results.csv')

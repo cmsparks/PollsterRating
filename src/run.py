@@ -1,8 +1,8 @@
 import pandas as pd
-import midterm.fill_2018_polls as mt
+import midterm.generate_2018_results as mt
 
 def main():
-    mt.load_polls()
+    mt.generate_results()
 
 if  __name__ =='__main__':
     main()
