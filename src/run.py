@@ -1,8 +1,9 @@
 import pandas as pd
-import midterm.generate_2018_results as mt
+import generate_results.poll_formatter as pf
 
 def main():
-    mt.generate_results()
+    polls = pf.3wk_as_dataframe()
+    polls.to_csv("../out/empty_polls.csv")
 
 if  __name__ =='__main__':
     main()

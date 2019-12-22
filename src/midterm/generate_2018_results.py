@@ -56,15 +56,15 @@ def load_house():
     return elx
 
 
-def load_house():
-    df = pd.read_csv('../data/2018-governor.csv')
+def load_governor():
+    df = pd.read_csv('../data/sources/2018-governor.csv')
     
     d = []
 
     for row in df.itertuples(index=True):
-        totalvotes = getattr(row, "RepVotes")+getattr(row, "DemVotes")+getattr(row, "ThirdVotes")
-        cand1_actual = getattr(row, "DemVotes")/totalvotes
-        cand2_actual = getattr(row, "RepVotes")/totalvotes
+        totalvotes = int(getattr(row, "RepVotes"))+int(getattr(row, "DemVotes"))+int(getattr(row, "ThirdVotes"))+int(getattr(row, "OtherVotes"))
+        cand1_actual = 100*(int(getattr(row, "DemVotes"))/totalvotes)
+        cand2_actual = 100*(int(getattr(row, "RepVotes"))/totalvotes)
         
         d.append(np.array([getattr(row, "Area"), 2018, 'Gov-G', 'Gov-G', 'Democrat', 'Republican', '11/6/2018', cand1_actual, cand2_actual]))
     
